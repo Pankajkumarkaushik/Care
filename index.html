@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZenSkin · wellness & skincare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; }
+    body {
+      background: #f7f3ff;
+      min-height: 100vh;
+      padding: 1.5rem;
+      transition: background 0.3s, color 0.2s;
+    }
+    body.dark-mode {
+      background: #1a142b;
+      color: #e8e0f0;
+    }
+    .app {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .header h1 i { color: #8a6de9; }
+    .theme-toggle {
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(6px);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid rgba(255,255,255,0.5);
+      color: #2f1b4b;
+      transition: 0.2s;
+    }
+    body.dark-mode .theme-toggle {
+      background: #2f234a;
+      color: #ddd0f0;
+      border-color: #4a3a6a;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 800px) { .grid-2 { grid-template-columns: 1fr; } }
+    .card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 8px 24px rgba(60, 40, 100, 0.06);
+      border: 1px solid rgba(255,255,255,0.6);
+      transition: background 0.2s;
+    }
+    body.dark-mode .card {
+      background: rgba(40, 30, 60, 0.7);
+      border-color: #3f2e5e;
+    }
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: #2f1b4b;
+    }
+    body.dark-mode .card h3 { color: #d9cef0; }
+    .card h3 i { color: #8a6de9; width: 1.8rem; }
+
+    .med-grid, .problem-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.3rem 0 0.8rem;
+    }
+    .med-tag, .problem-tag {
+      background: #f0eaff;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid #d5c6f0;
+      cursor: pointer;
+      transition: 0.1s;
+      color: #2f1b4b;
+    }
+    body.dark-mode .med-tag, body.dark-mode .problem-tag {
+      background: #31234a;
+      border-color: #57417a;
+      color: #d9cef0;
+    }
+    .med-tag.active, .problem-tag.active { background: #7b5fc7; color: white; border-color: #7b5fc7; }
+    .med-msg, .affirmation-box, .scanner-result, .correlation-box {
+      background: rgba(255,255,255,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+    body.dark-mode .med-msg, body.dark-mode .affirmation-box, body.dark-mode .scanner-result, body.dark-mode .correlation-box {
+      background: #2d1f44;
+    }
+
+    .skin-type-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0; }
+    .skin-btn {
+      background: white; border: 1px solid #d5c6f0; border-radius: 40px;
+      padding: 0.2rem 1rem; font-weight: 500; cursor: pointer;
+      transition: 0.1s; color: #2f1b4b;
+    }
+    body.dark-mode .skin-btn { background: #2d1f44; border-color: #57417a; color: #ddd; }
+    .skin-btn.active { background: #7b5fc7; color: white; border-color: #7b5fc7; }
+    .routine-box {
+      background: rgba(255,255,255,0.3); padding: 0.8rem 1rem; border-radius: 24px;
+      margin-top: 0.8rem; font-size: 0.9rem; line-height: 1.6;
+    }
+    body.dark-mode .routine-box { background: #2a1c40; }
+
+    .hydration-area { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .water-btn {
+      background: #d9e8ff; border: none; border-radius: 40px;
+      padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer;
+      border: 1px solid #b6cff0;
+    }
+    body.dark-mode .water-btn { background: #2e4060; border-color: #4a6a8a; color: #d9e8ff; }
+    .water-count { font-size: 1.8rem; font-weight: 700; }
+    .streak-badge { background: #ffd966; padding: 0.2rem 1rem; border-radius: 40px; font-weight: 600; color: #2f1b4b; }
+    .surprise-box {
+      margin-top: 1rem; background: #f2e6ff; border-radius: 28px; padding: 0.8rem 1.2rem;
+      text-align: center; font-weight: 500;
+      transition: 0.3s; border: 1px solid #d5c6f0;
+      min-height: 4rem;
+    }
+    body.dark-mode .surprise-box { background: #32254a; border-color: #57417a; }
+
+    .char-box { display: flex; flex-direction: column; align-items: center; }
+    .character-svg {
+      width: 110px; height: 110px; background: #d9cef0; border-radius: 50%;
+      display: flex; justify-content: center; align-items: center;
+      box-shadow: 0 6px 0 #b6a3d4; transition: 0.2s;
+      cursor: pointer;
+    }
+    body.dark-mode .character-svg { background: #3a2a58; box-shadow: 0 6px 0 #2a1a40; }
+    .breath-text { font-size: 1.6rem; font-weight: 700; margin: 0.3rem 0; }
+    .timer-display { font-size: 2.2rem; font-weight: 600; letter-spacing: 2px; background: #2f1b4b; color: white; padding: 0.2rem 1.4rem; border-radius: 60px; }
+    body.dark-mode .timer-display { background: #3f2a62; }
+
+    .progress-wrap { margin: 0.8rem 0; }
+    .progress-bar-bg { background: #d5c6f0; height: 12px; border-radius: 40px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: #7b5fc7; border-radius: 40px; transition: width 0.3s; }
+    .task-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem; }
+    .task-item {
+      background: rgba(255,255,255,0.4); padding: 0.2rem 0.8rem; border-radius: 40px;
+      border: 1px solid #d5c6f0; cursor: pointer; transition: 0.1s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    body.dark-mode .task-item { background: #2d1f44; border-color: #57417a; }
+    .task-item.done { opacity: 0.6; text-decoration: line-through; background: #b7a6d9; }
+    .task-item i { font-size: 0.9rem; }
+    .day-reset-note { font-size: 0.75rem; opacity: 0.7; margin-top: 0.3rem; }
+
+    .report-box, .badge-box {
+      background: rgba(255,255,255,0.3);
+      padding: 0.8rem 1rem;
+      border-radius: 24px;
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    body.dark-mode .report-box, body.dark-mode .badge-box { background: #2a1c40; }
+
+    .badge-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.3rem; }
+    .badge-item {
+      background: #f0eaff; padding: 0.2rem 0.8rem; border-radius: 40px;
+      font-size: 0.75rem; font-weight: 600; border: 1px solid #d5c6f0;
+      display: flex; align-items: center; gap: 4px;
+    }
+    body.dark-mode .badge-item { background: #31234a; border-color: #57417a; color: #d9cef0; }
+    .badge-item.locked { opacity: 0.4; filter: grayscale(0.8); }
+
+    .scanner-input {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.3rem 0;
+    }
+    .scanner-input input {
+      flex: 1; min-width: 150px; padding: 0.4rem 1rem; border-radius: 40px;
+      border: 1px solid #d5c6f0; background: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+    }
+    body.dark-mode .scanner-input input { background: #2d1f44; border-color: #57417a; color: #ddd; }
+
+    .btn {
+      background: #f4efff; border: none; padding: 0.4rem 1rem; border-radius: 40px;
+      font-weight: 500; cursor: pointer; border: 1px solid rgba(255,255,255,0.5);
+      transition: 0.1s;
+    }
+    .btn-primary { background: #7b5fc7; color: white; border-color: #9a80d9; }
+    .btn-outline { background: transparent; border: 1px solid #b7a6d9; }
+    body.dark-mode .btn { background: #2d1f44; color: #ddd; border-color: #4a3a6a; }
+    body.dark-mode .btn-primary { background: #7b5fc7; color: white; border-color: #9a80d9; }
+    .footer { margin-top: 1.8rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; opacity: 0.7; font-size: 0.8rem; }
+
+    .challenge-box {
+      background: rgba(255,255,255,0.3); padding: 0.8rem 1rem; border-radius: 24px;
+      margin-top: 0.5rem; font-size: 0.9rem;
+    }
+    body.dark-mode .challenge-box { background: #2a1c40; }
+    .challenge-progress { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+    .checkin-box {
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 40px;
+      margin: 0.3rem 0;
+    }
+    .mood-slider { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+    .mood-emoji {
+      font-size: 1.6rem; cursor: pointer; padding: 0.2rem 0.4rem;
+      border-radius: 40px; transition: 0.1s; border: 2px solid transparent;
+    }
+    .mood-emoji:hover { transform: scale(1.2); }
+    .mood-emoji.active { border-color: #7b5fc7; background: rgba(123,95,199,0.2); }
+
+    .reward-box {
+      background: linear-gradient(135deg, #ffd966, #ffb347);
+      padding: 0.5rem 1rem; border-radius: 40px;
+      font-weight: 600; color: #2f1b4b;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    body.dark-mode .reward-box { background: linear-gradient(135deg, #b8860b, #8b6914); color: #ffd966; }
+
+    .diet-input {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.3rem 0;
+    }
+    .diet-input input {
+      flex: 1; min-width: 120px; padding: 0.3rem 0.8rem; border-radius: 40px;
+      border: 1px solid #d5c6f0; background: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+    }
+    body.dark-mode .diet-input input { background: #2d1f44; border-color: #57417a; color: #ddd; }
+    .diet-log {
+      font-size: 0.8rem; max-height: 80px; overflow-y: auto; padding: 0.3rem;
+      background: rgba(255,255,255,0.2); border-radius: 16px;
+    }
+
+    .product-match {
+      background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 16px;
+      margin-top: 0.3rem; font-size: 0.85rem;
+      min-height: 3rem;
+    }
+    .usage-note {
+      background: rgba(123,95,199,0.1);
+      border-left: 3px solid #7b5fc7;
+      padding: 0.3rem 0.6rem;
+      border-radius: 8px;
+      margin: 0.3rem 0;
+      font-size: 0.8rem;
+    }
+    @media (max-width: 800px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1><i class="fas fa-spa"></i> ZenSkin · wellness</h1>
+    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> Night mode</button>
+  </div>
+
+  <div class="grid-2">
+    <!-- LEFT -->
+    <div class="card">
+      <div class="char-box">
+        <div class="character-svg" id="characterSvg">
+          <svg viewBox="0 0 100 100" width="90" height="90">
+            <circle cx="50" cy="55" r="32" fill="#f3e9ff" stroke="#b8a2d9" stroke-width="2.5" />
+            <circle cx="38" cy="48" r="5" fill="#2f1b4b" />
+            <circle cx="62" cy="48" r="5" fill="#2f1b4b" />
+            <path d="M 35 60 Q 50 72 65 60" stroke="#2f1b4b" stroke-width="3" fill="none" stroke-linecap="round" />
+            <circle cx="30" cy="58" r="5" fill="#e7b0d0" opacity="0.4" />
+            <circle cx="70" cy="58" r="5" fill="#e7b0d0" opacity="0.4" />
+            <path id="lungL" d="M 20 25 C 15 15, 25 8, 32 18 L 35 25" fill="#b8a2d9" opacity="0.3" />
+            <path id="lungR" d="M 80 25 C 85 15, 75 8, 68 18 L 65 25" fill="#b8a2d9" opacity="0.3" />
+          </svg>
+        </div>
+        <div class="breath-text" id="breathPhase">🌬️ Exhale</div>
+        <div class="timer-display" id="timerDisplay">00:00</div>
+        <div style="margin: 0.3rem 0; font-size:0.8rem;">⏱️ session timer</div>
+        <button class="btn btn-primary" id="startBreathBtn" style="margin:0.3rem 0;"><i class="fas fa-play"></i> Start 5-5-5 breath</button>
+        <button class="btn btn-outline" id="resetTimerBtn"><i class="fas fa-undo-alt"></i> Reset</button>
+      </div>
+
+      <h3 style="margin-top:1.2rem;"><i class="fas fa-brain"></i> Meditation for mood</h3>
+      <div class="med-grid" id="meditationGrid">
+        <span class="med-tag active" data-med="anxiety">😰 Anxiety</span>
+        <span class="med-tag" data-med="stress">💢 Stress</span>
+        <span class="med-tag" data-med="sadness">😔 Sadness</span>
+        <span class="med-tag" data-med="anger">🔥 Anger</span>
+        <span class="med-tag" data-med="tired">😴 Tired</span>
+        <span class="med-tag" data-med="focus">🧘 Focus</span>
+      </div>
+      <div class="med-msg" id="meditationMsg">🌸 Calm mind, gentle heart</div>
+
+      <h3 style="margin-top:1rem;"><i class="fas fa-hand-sparkles"></i> Daily affirmation</h3>
+      <div class="affirmation-box" id="affirmationBox">✨ You are worthy of self-care.</div>
+
+      <h3 style="margin-top:1rem;"><i class="fas fa-face-smile"></i> Daily check-in</h3>
+      <div class="checkin-box">
+        <span style="font-weight:500;">How's your mood?</span>
+        <div class="mood-slider" id="moodSlider">
+          <span class="mood-emoji" data-mood="terrible">😢</span>
+          <span class="mood-emoji" data-mood="bad">😕</span>
+          <span class="mood-emoji" data-mood="okay">😐</span>
+          <span class="mood-emoji" data-mood="good">😊</span>
+          <span class="mood-emoji" data-mood="great">😍</span>
+        </div>
+      </div>
+      <div class="correlation-box" id="correlationBox">📊 Log your mood daily to see skin patterns!</div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="card">
+      <h3><i class="fas fa-face-smile"></i> Skincare routine</h3>
+      <div><strong>Select your skin type:</strong></div>
+      <div class="skin-type-row" id="skinTypeRow">
+        <span class="skin-btn active" data-skin="dry">Dry</span>
+        <span class="skin-btn" data-skin="oily">Oily</span>
+        <span class="skin-btn" data-skin="combination">Combination</span>
+        <span class="skin-btn" data-skin="sensitive">Sensitive</span>
+        <span class="skin-btn" data-skin="normal">Normal</span>
+      </div>
+
+      <div style="margin-top:0.8rem;"><strong>Select a skin issue:</strong></div>
+      <div class="problem-grid" id="problemGrid">
+        <span class="problem-tag" data-problem="acne">🔴 Acne</span>
+        <span class="problem-tag" data-problem="darkcircles">🟣 Dark Circles</span>
+        <span class="problem-tag" data-problem="wrinkles">🔸 Wrinkles</span>
+        <span class="problem-tag" data-problem="redness">🔴 Redness</span>
+        <span class="problem-tag" data-problem="dullness">⚪ Dullness</span>
+      </div>
+
+      <div class="routine-box" id="routineBox">✨ Step-by-step routine will appear here.</div>
+
+      <!-- PRODUCT REPLACEMENTS (INR CURRENCY) -->
+      <h3 style="margin-top:0.8rem;"><i class="fas fa-exchange-alt"></i> Product replacements (₹ INR)</h3>
+      <div class="product-match" id="productMatch">🔍 Select a skin issue above to see affordable alternatives.</div>
+
+      <h3 style="margin-top:1rem;"><i class="fas fa-utensils"></i> Diet tracker</h3>
+      <div class="diet-input">
+        <input type="text" id="dietInput" placeholder="What did you eat? (e.g., salad, pizza)">
+        <button class="btn btn-primary" id="logDietBtn"><i class="fas fa-plus"></i> Log</button>
+      </div>
+      <div class="diet-log" id="dietLog">📝 No food logged today.</div>
+
+      <h3 style="margin-top:1rem;"><i class="fas fa-water"></i> Hydration tracker</h3>
+      <div class="hydration-area">
+        <button class="water-btn" id="addWaterBtn"><i class="fas fa-plus-circle"></i> Drink 250ml</button>
+        <span class="water-count" id="waterCount">0</span> <span style="font-size:0.9rem;">ml</span>
+        <span class="streak-badge" id="streakBadge"><i class="fas fa-calendar-day"></i> Day 0</span>
+      </div>
+      <div style="margin-top:0.3rem; font-size:0.8rem;">Today: <span id="todayDate"></span></div>
+
+      <div class="surprise-box" id="surpriseBox">🌟 Keep your streak alive!</div>
+      <div class="reward-box" id="rewardBox">🎁 Streak rewards: 0 points</div>
+
+      <h3 style="margin-top:1rem;"><i class="fas fa-medal"></i> Achievement badges</h3>
+      <div class="badge-box" id="badgeBox">
+        <div class="badge-grid" id="badgeGrid"></div>
+      </div>
+
+      <h3 style="margin-top:1rem;"><i class="fas fa-chart-line"></i> Weekly progress</h3>
+      <div class="report-box" id="reportBox">📊 Loading your weekly stats...</div>
+
+      <h3 style="margin-top:1rem;"><i class="fas fa-list-check"></i> Daily wellness tasks</h3>
+      <div class="progress-wrap">
+        <div class="progress-bar-bg"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+        <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-top:2px;"><span>0%</span><span id="progressPercent">0%</span></div>
+      </div>
+      <div class="task-list" id="taskList">
+        <span class="task-item" data-task="meditate"><i class="far fa-circle"></i> Meditate 5min</span>
+        <span class="task-item" data-task="skincare"><i class="far fa-circle"></i> Do skincare</span>
+        <span class="task-item" data-task="water"><i class="far fa-circle"></i> Drink 2L water</span>
+        <span class="task-item" data-task="breath"><i class="far fa-circle"></i> 5-5-5 breath</span>
+      </div>
+      <div class="day-reset-note"><i class="fas fa-sync-alt"></i> Tasks reset daily · streak stays</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span><i class="fas fa-heart" style="color:#b37bcf;"></i> mind · skin · water</span>
+    <span><i class="fas fa-calendar-check"></i> 3-day streak = surprise</span>
+    <span><i class="fas fa-bell"></i> Water reminders active</span>
+  </div>
+</div>
+
+<script>
+  (function() {
+    "use strict";
+
+    // --- DOM refs ---
+    const breathPhase = document.getElementById('breathPhase');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const startBreathBtn = document.getElementById('startBreathBtn');
+    const resetTimerBtn = document.getElementById('resetTimerBtn');
+    const characterSvg = document.getElementById('characterSvg');
+    const meditationGrid = document.getElementById('meditationGrid');
+    const meditationMsg = document.getElementById('meditationMsg');
+    const skinTypeRow = document.getElementById('skinTypeRow');
+    const routineBox = document.getElementById('routineBox');
+    const problemGrid = document.getElementById('problemGrid');
+    const addWaterBtn = document.getElementById('addWaterBtn');
+    const waterCount = document.getElementById('waterCount');
+    const streakBadge = document.getElementById('streakBadge');
+    const surpriseBox = document.getElementById('surpriseBox');
+    const rewardBox = document.getElementById('rewardBox');
+    const todayDate = document.getElementById('todayDate');
+    const taskList = document.getElementById('taskList');
+    const progressFill = document.getElementById('progressFill');
+    const progressPercent = document.getElementById('progressPercent');
+    const themeToggle = document.getElementById('themeToggle');
+    const affirmationBox = document.getElementById('affirmationBox');
+    const reportBox = document.getElementById('reportBox');
+    const badgeGrid = document.getElementById('badgeGrid');
+    const correlationBox = document.getElementById('correlationBox');
+    const productMatch = document.getElementById('productMatch');
+    const dietInput = document.getElementById('dietInput');
+    const logDietBtn = document.getElementById('logDietBtn');
+    const dietLog = document.getElementById('dietLog');
+
+    // --- state ---
+    let timerSeconds = 0, timerInterval = null, breathInterval = null;
+    let isBreathing = false;
+    let waterMl = 0;
+    let streakDays = 0;
+    let streakPoints = 0;
+    let lastDate = '';
+    let currentSkin = 'dry';
+    let currentMed = 'anxiety';
+    let currentProblem = '';
+    let tasks = {};
+    let weeklyLog = {};
+    let badges = {};
+    let challengeDays = 0;
+    let lastChallengeDate = '';
+    let moodLog = {};
+    let dietLogs = {};
+    let checkinToday = false;
+
+    // --- init ---
+    function getToday() {
+      const d = new Date();
+      return d.toISOString().split('T')[0];
+    }
+
+    function loadState() {
+      const stored = localStorage.getItem('zenskin_data_v6');
+      if (stored) {
+        try {
+          const data = JSON.parse(stored);
+          waterMl = data.waterMl || 0;
+          streakDays = data.streakDays || 0;
+          streakPoints = data.streakPoints || 0;
+          lastDate = data.lastDate || '';
+          tasks = data.tasks || {};
+          weeklyLog = data.weeklyLog || {};
+          currentSkin = data.currentSkin || 'dry';
+          currentMed = data.currentMed || 'anxiety';
+          currentProblem = data.currentProblem || '';
+          badges = data.badges || {};
+          challengeDays = data.challengeDays || 0;
+          lastChallengeDate = data.lastChallengeDate || '';
+          moodLog = data.moodLog || {};
+          dietLogs = data.dietLogs || {};
+          checkinToday = data.checkinToday || false;
+        } catch(e) { resetDefaultState(); }
+      } else {
+        resetDefaultState();
+      }
+      if (!lastDate) lastDate = getToday();
+      const today = getToday();
+      if (lastDate !== today) {
+        const yesterday = lastDate;
+        if (!weeklyLog[yesterday]) {
+          weeklyLog[yesterday] = { water: waterMl, meditate: tasks.meditate || false, skincare: tasks.skincare || false, breath: tasks.breath || false };
+        }
+        waterMl = 0;
+        tasks = { meditate: false, skincare: false, water: false, breath: false };
+        checkinToday = false;
+        const last = new Date(lastDate);
+        const now = new Date(today);
+        const diff = (now - last) / (1000*60*60*24);
+        if (diff === 1) {
+          streakDays += 1;
+          streakPoints += 10;
+        } else if (diff > 1) {
+          streakDays = 0;
+          streakPoints = 0;
+        }
+        lastDate = today;
+      }
+      ['meditate','skincare','water','breath'].forEach(id => { if (!(id in tasks)) tasks[id] = false; });
+      saveState();
+    }
+
+    function resetDefaultState() {
+      waterMl = 0; streakDays = 0; streakPoints = 0; lastDate = getToday();
+      tasks = { meditate: false, skincare: false, water: false, breath: false };
+      weeklyLog = {}; badges = {}; moodLog = {}; dietLogs = {}; checkinToday = false;
+      challengeDays = 0; lastChallengeDate = '';
+      currentSkin = 'dry'; currentMed = 'anxiety'; currentProblem = '';
+    }
+
+    function saveState() {
+      const data = { waterMl, streakDays, streakPoints, lastDate, tasks, weeklyLog, currentSkin, currentMed, currentProblem, badges, challengeDays, lastChallengeDate, moodLog, dietLogs, checkinToday };
+      localStorage.setItem('zenskin_data_v6', JSON.stringify(data));
+    }
+
+    // --- update UI ---
+    function updateUI() {
+      waterCount.textContent = waterMl;
+      streakBadge.innerHTML = `<i class="fas fa-calendar-day"></i> Day ${streakDays}`;
+      rewardBox.innerHTML = `🎁 Streak rewards: ${streakPoints} points`;
+      todayDate.textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+      const taskIds = ['meditate','skincare','water','breath'];
+      let doneCount = 0;
+      taskIds.forEach(id => {
+        const el = document.querySelector(`.task-item[data-task="${id}"]`);
+        if (el) {
+          if (tasks[id]) {
+            el.classList.add('done');
+            el.innerHTML = `<i class="fas fa-check-circle" style="color:#7b5fc7;"></i> ${el.textContent.trim()}`;
+            doneCount++;
+          } else {
+            el.classList.remove('done');
+            el.innerHTML = `<i class="far fa-circle"></i> ${el.textContent.trim()}`;
+          }
+        }
+      });
+      const total = taskIds.length;
+      const pct = Math.round((doneCount / total) * 100);
+      progressFill.style.width = pct + '%';
+      progressPercent.textContent = pct + '%';
+
+      if (streakDays >= 3) {
+        surpriseBox.innerHTML = `<i class="fas fa-gift" style="color:#b37bcf;"></i> 🎉 3-day streak! You're glowing! ✨ +10 points!`;
+      } else {
+        surpriseBox.innerHTML = `🌟 Keep going! ${3 - streakDays} day(s) to surprise.`;
+      }
+
+      updateRoutine();
+      updateMeditationMsg();
+      updateAffirmation();
+      updateReport();
+      updateBadges();
+      updateCorrelation();
+      updateProductMatches();
+      updateDietLog();
+      updateMoodUI();
+    }
+
+    // --- SKINCARE ROUTINE with USAGE INSTRUCTIONS (NEW) ---
+    const routines = {
+      dry: { 
+        name: 'Dry', 
+        steps: [
+          '1. Gentle cream cleanser – Use a pea-sized amount, massage gently for 30 seconds, rinse with lukewarm water.',
+          '2. Hydrating toner – Apply 3-4 drops onto a cotton pad or palms, pat gently into skin. Use twice daily.',
+          '3. Hyaluronic acid serum – Apply 2-3 drops on damp face, pat until absorbed. Use AM & PM.',
+          '4. Rich moisturizer – Take a pea-sized amount, warm between palms, press into skin. Use AM & PM.',
+          '5. Sunscreen (AM) / Night cream (PM) – AM: Apply 2 finger-lengths of SPF 50. PM: Use a pearl-sized amount of night cream.'
+        ], 
+        products: ['CeraVe Hydrating Cleanser', 'The Ordinary HA', 'La Roche-Posay Lipikar'] 
+      },
+      oily: { 
+        name: 'Oily', 
+        steps: [
+          '1. Salicylic acid cleanser – Use a pea-sized amount, lather and massage for 30 seconds. Use once daily (PM) to avoid over-drying.',
+          '2. Oil-free toner – Apply with a cotton pad, focus on T-zone. Use twice daily.',
+          '3. Niacinamide serum – Apply 2-3 drops, spread evenly. Wait 2 minutes before next step. Use AM & PM.',
+          '4. Light gel moisturizer – Apply a thin layer (half a pea-size), massage gently. Use twice daily.',
+          '5. Sunscreen (AM) / Retinol (PM) – AM: Apply 2 finger-lengths of SPF 50. PM: Use a pea-sized retinol on dry skin (start 2x/week).'
+        ], 
+        products: ['CeraVe Foaming Cleanser', 'The Ordinary Niacinamide', 'Neutrogena Hydro Boost'] 
+      },
+      combination: { 
+        name: 'Combination', 
+        steps: [
+          '1. Balancing cleanser – Use a nickel-sized amount, massage for 30 seconds, rinse. Use twice daily.',
+          '2. Hydrating + astringent toner – Apply on T-zone with cotton pad, pat on cheeks with hands. Use twice daily.',
+          '3. Hyaluronic acid serum – Apply 2 drops on damp skin, pat until absorbed. Use AM & PM.',
+          '4. Light moisturizer (T-zone) / richer on cheeks – Use gel on T-zone, cream on cheeks. Use twice daily.',
+          '5. Sunscreen – Apply 2 finger-lengths of SPF 50 every morning. Reapply if outdoors.'
+        ], 
+        products: ['La Roche-Posay Toleriane', 'Klairs Supple Toner', 'Cosrx Snail Mucin'] 
+      },
+      sensitive: { 
+        name: 'Sensitive', 
+        steps: [
+          '1. Mild, fragrance-free cleanser – Use a small amount, massage gently for 20 seconds. Rinse with cool water. Use once daily (PM).',
+          '2. Soothing toner – Apply with soft cotton pad, no rubbing. Use AM & PM.',
+          '3. Calming serum (centella) – Apply 2-3 drops on damp skin, pat gently. Use twice daily.',
+          '4. Barrier repair moisturizer – Use a pea-sized amount, apply on damp skin to lock moisture. Use twice daily.',
+          '5. Mineral sunscreen (AM) – Apply 2 finger-lengths of SPF 30+ mineral sunscreen. Reapply every 2 hours outdoors.'
+        ], 
+        products: ['Aveeno Calm+Restore', 'La Roche-Posay Cicaplast', 'Vanicream Daily Moisturizer'] 
+      },
+      normal: { 
+        name: 'Normal', 
+        steps: [
+          '1. Gentle foaming cleanser – Use a pea-sized amount, massage for 30 seconds, rinse. Use twice daily.',
+          '2. Hydrating toner – Apply 3-4 drops with hands, pat into skin. Use twice daily.',
+          '3. Vitamin C serum – Apply 3-4 drops on clean, dry skin. Wait 3-5 minutes before next step. Use AM only.',
+          '4. Balanced moisturizer – Use a pearl-sized amount, apply evenly. Use twice daily.',
+          '5. Sunscreen (AM) / Night repair (PM) – AM: SPF 50 (2 finger-lengths). PM: Use a retinol or peptide cream (pea-sized).'
+        ], 
+        products: ['Cosrx Low pH Cleanser', 'Vitamin C serum', 'Neutrogena Hydro Boost'] 
+      }
+    };
+
+    const problemSolutions = {
+      acne: { remedy: 'Use salicylic acid or benzoyl peroxide. Keep skin clean and avoid heavy creams. Always patch test new products.', products: 'CeraVe Acne Foaming Cleanser, Paula\'s Choice BHA' },
+      darkcircles: { remedy: 'Apply vitamin C or retinol eye cream. Get enough sleep and stay hydrated. Use cool compresses to reduce puffiness.', products: 'The Ordinary Caffeine Solution, Kiehl\'s Eye Cream' },
+      wrinkles: { remedy: 'Use retinoids and peptides. Always wear SPF. Hydrate deeply. Start retinoids 2x/week and gradually increase.', products: 'Retinol 0.5%, CeraVe Skin Renewing Cream' },
+      redness: { remedy: 'Use calming ingredients like centella, aloe, and niacinamide. Avoid alcohol and fragrances. Apply cold compresses for immediate relief.', products: 'La Roche-Posay Rosaliac, Dr. Jart+ Cicapair' },
+      dullness: { remedy: 'Exfoliate 2x/week with AHAs. Use vitamin C daily. Stay hydrated and get enough sleep.', products: 'The Ordinary Lactic Acid, Vitamin C suspension' }
+    };
+
+    function updateRoutine() {
+      const r = routines[currentSkin] || routines.normal;
+      let html = `<strong>${r.name} skin routine</strong><br>`;
+      html += r.steps.map(s => `• ${s}`).join('<br>');
+      html += `<br><strong>Recommended products:</strong> ${r.products.join(' · ')}`;
+      if (currentProblem && problemSolutions[currentProblem]) {
+        const p = problemSolutions[currentProblem];
+        html += `<br><br><strong>🔍 For ${currentProblem.replace(/([A-Z])/g,' $1').toLowerCase()}:</strong> ${p.remedy}`;
+        html += `<br><strong>Products:</strong> ${p.products}`;
+      }
+      // Add usage tip
+      html += `<br><br><div class="usage-note">💡 <strong>How to apply:</strong> Always apply products from thinnest to thickest consistency. Wait 30-60 seconds between each layer for better absorption. Use gentle patting motions, never rubbing.</div>`;
+      routineBox.innerHTML = html;
+    }
+
+    // --- PRODUCT REPLACEMENTS (INR CURRENCY) ---
+    const replacements = {
+      acne: {
+        expensive: 'Drunk Elephant T.L.C. Serum (₹7,300)',
+        affordable: 'The Ordinary Salicylic Acid 2% (₹580)',
+        dupe: 'CeraVe Acne Control Cleanser (₹1,050)'
+      },
+      darkcircles: {
+        expensive: 'La Mer Eye Concentrate (₹20,500)',
+        affordable: 'The Ordinary Caffeine Solution (₹500)',
+        dupe: 'Kiehl\'s Creamy Eye Treatment (₹2,100)'
+      },
+      wrinkles: {
+        expensive: 'SkinCeuticals Retinol 1.0 (₹8,000)',
+        affordable: 'The Ordinary Retinol 0.5% (₹670)',
+        dupe: 'CeraVe Skin Renewing Retinol (₹1,350)'
+      },
+      redness: {
+        expensive: 'La Roche-Posay Rosaliac AR (₹3,700)',
+        affordable: 'The Ordinary Niacinamide 10% (₹500)',
+        dupe: 'Aveeno Calm+Restore Serum (₹1,800)'
+      },
+      dullness: {
+        expensive: 'SkinCeuticals C E Ferulic (₹15,200)',
+        affordable: 'The Ordinary Vitamin C 15% (₹830)',
+        dupe: 'Maelove The Glow Maker (₹2,300)'
+      }
+    };
+
+    function updateProductMatches() {
+      if (currentProblem && replacements[currentProblem]) {
+        const r = replacements[currentProblem];
+        const problemName = currentProblem.replace(/([A-Z])/g,' $1').toLowerCase();
+        productMatch.innerHTML = `
+          <strong>💸 Budget-friendly alternatives for ${problemName}:</strong><br>
+          🤑 <strong>Affordable:</strong> ${r.affordable}<br>
+          🔄 <strong>Dupe:</strong> ${r.dupe}<br>
+          💰 <strong>Premium:</strong> ${r.expensive}
+          <br><span style="font-size:0.75rem; opacity:0.7;">✅ Save up to 90% with these alternatives!</span>
+        `;
+      } else {
+        productMatch.innerHTML = '🔍 Select a skin issue above to see affordable alternatives in ₹.';
+      }
+    }
+
+    // --- meditation ---
+    const meditations = {
+      anxiety: '🌿 Anxiety: Practice grounding. Inhale 4, hold 4, exhale 6. Repeat 5 times.',
+      stress: '💆 Stress relief: Body scan meditation. Tense and relax each muscle group.',
+      sadness: '🌈 Sadness: Loving-kindness meditation. Send compassion to yourself.',
+      anger: '🔥 Anger: Breath of fire (rapid exhales). Cool down with 5-5-5 breath.',
+      tired: '😴 Tired: Yoga Nidra or deep rest. Lie down, focus on breath.',
+      focus: '🧘 Focus: Candle gazing or mantra repetition. 5 minutes of silence.'
+    };
+
+    function updateMeditationMsg() {
+      meditationMsg.textContent = meditations[currentMed] || '🌸 Breathe and be present.';
+    }
+
+    // --- affirmation ---
+    const affirmations = {
+      dry: '✨ Your skin is resilient. Hydrate from within and glow.',
+      oily: '🔥 Your skin is powerful. Balance is your superpower.',
+      combination: '🌸 Your skin is unique. Honor both sides with care.',
+      sensitive: '🌿 Your skin is delicate. Treat it with extra love.',
+      normal: '🌟 Your skin is balanced. Keep nurturing it.'
+    };
+    function updateAffirmation() {
+      const base = affirmations[currentSkin] || '✨ You are worthy of self-care.';
+      const moodSuffix = {
+        anxiety: ' Breathe peace into your day.',
+        stress: ' You are calm and capable.',
+        sadness: ' You are allowed to feel and heal.',
+        anger: ' You are stronger than your triggers.',
+        tired: ' Rest is productive. You deserve it.',
+        focus: ' You are present and powerful.'
+      };
+      const suffix = moodSuffix[currentMed] || '';
+      affirmationBox.textContent = base + suffix;
+    }
+
+    // --- mood correlation ---
+    function updateCorrelation() {
+      const days = Object.keys(moodLog).slice(-7);
+      if (days.length < 2) {
+        correlationBox.innerHTML = '📊 Log your mood daily for 3+ days to see skin-mood patterns!';
+        return;
+      }
+      let goodDays = 0, badDays = 0;
+      days.forEach(d => {
+        const m = moodLog[d];
+        if (m === 'good' || m === 'great') goodDays++;
+        if (m === 'terrible' || m === 'bad') badDays++;
+      });
+      if (goodDays > badDays) {
+        correlationBox.innerHTML = `😊 Your skin seems happier on days you feel good! (${goodDays}/${days.length} days positive)`;
+      } else if (badDays > goodDays) {
+        correlationBox.innerHTML = `😢 Notice: Your skin may react to low-mood days. Try meditation on those days! (${badDays}/${days.length} days low mood)`;
+      } else {
+        correlationBox.innerHTML = `🧘 Your mood and skin are balanced! Keep up the good habits.`;
+      }
+    }
+
+    // --- mood check-in ---
+    function setMood(mood) {
+      const today = getToday();
+      moodLog[today] = mood;
+      checkinToday = true;
+      saveState();
+      updateMoodUI();
+      updateCorrelation();
+      streakPoints += 2;
+      saveState();
+      updateUI();
+    }
+
+    function updateMoodUI() {
+      const today = getToday();
+      const currentMood = moodLog[today] || null;
+      document.querySelectorAll('.mood-emoji').forEach(el => {
+        el.classList.toggle('active', el.dataset.mood === currentMood);
+      });
+    }
+
+    // --- diet ---
+    function logDiet() {
+      const text = dietInput.value.trim();
+      if (!text) return;
+      const today = getToday();
+      if (!dietLogs[today]) dietLogs[today] = [];
+      dietLogs[today].push(text);
+      dietInput.value = '';
+      saveState();
+      updateDietLog();
+      streakPoints += 1;
+      saveState();
+      updateUI();
+    }
+
+    function updateDietLog() {
+      const today = getToday();
+      const logs = dietLogs[today] || [];
+      if (logs.length === 0) {
+        dietLog.innerHTML = '📝 No food logged today.';
+      } else {
+        dietLog.innerHTML = `📝 Today's food: ${logs.join(' · ')}`;
+      }
+    }
+
+    // --- report ---
+    function updateReport() {
+      const days = Object.keys(weeklyLog).slice(-7);
+      if (days.length === 0) {
+        reportBox.innerHTML = '📊 No data yet. Complete your daily tasks to see progress!';
+        return;
+      }
+      let totalWater = 0, medCount = 0, skinCount = 0, breathCount = 0;
+      days.forEach(d => {
+        const log = weeklyLog[d];
+        if (log) {
+          totalWater += log.water || 0;
+          if (log.meditate) medCount++;
+          if (log.skincare) skinCount++;
+          if (log.breath) breathCount++;
+        }
+      });
+      const avgWater = Math.round(totalWater / days.length);
+      reportBox.innerHTML = `
+        <strong>📅 Last ${days.length} days:</strong><br>
+        💧 Avg water: ${avgWater}ml &nbsp;|&nbsp; 🧘 Meditation: ${medCount} days &nbsp;|&nbsp; 🧴 Skincare: ${skinCount} days &nbsp;|&nbsp; 🌬️ Breath: ${breathCount} days
+        <br>🔥 Streak: ${streakDays} days &nbsp;|&nbsp; 🎁 Points: ${streakPoints}
+      `;
+    }
+
+    // --- badges ---
+    const badgeDefinitions = [
+      { id: 'water_hero', icon: '💧', label: 'Hydration Hero', condition: () => streakDays >= 3 },
+      { id: 'skin_master', icon: '🧴', label: 'Skin Master', condition: () => {
+          let count = 0;
+          Object.values(weeklyLog).slice(-7).forEach(log => { if (log && log.skincare) count++; });
+          return count >= 5;
+        }},
+      { id: 'meditation_guru', icon: '🧘', label: 'Meditation Guru', condition: () => {
+          let count = 0;
+          Object.values(weeklyLog).slice(-7).forEach(log => { if (log && log.meditate) count++; });
+          return count >= 5;
+        }},
+      { id: 'breath_master', icon: '🌬️', label: 'Breath Master', condition: () => {
+          let count = 0;
+          Object.values(weeklyLog).slice(-7).forEach(log => { if (log && log.breath) count++; });
+          return count >= 5;
+        }},
+      { id: 'glow_master', icon: '🌟', label: 'Glow Master', condition: () => challengeDays >= 7 },
+      { id: 'streak_champ', icon: '🔥', label: 'Streak Champ', condition: () => streakDays >= 7 },
+      { id: 'mood_master', icon: '😊', label: 'Mood Master', condition: () => Object.keys(moodLog).length >= 7 },
+      { id: 'food_explorer', icon: '🍽️', label: 'Food Explorer', condition: () => {
+          let total = 0;
+          Object.values(dietLogs).forEach(arr => total += arr.length);
+          return total >= 10;
+        }},
+    ];
+
+    function updateBadges() {
+      badgeDefinitions.forEach(b => {
+        badges[b.id] = b.condition();
+      });
+      saveState();
+      let html = '';
+      badgeDefinitions.forEach(b => {
+        const earned = badges[b.id] || false;
+        html += `<span class="badge-item ${earned ? '' : 'locked'}">${b.icon} ${b.label} ${earned ? '✅' : '🔒'}</span>`;
+      });
+      badgeGrid.innerHTML = html;
+    }
+
+    // --- challenge ---
+    function updateChallenge() {
+      const today = getToday();
+      const allDone = tasks.meditate && tasks.skincare && tasks.water && tasks.breath;
+      if (allDone) {
+        if (lastChallengeDate !== today) {
+          const last = new Date(lastChallengeDate);
+          const now = new Date(today);
+          const diff = (now - last) / (1000*60*60*24);
+          if (diff === 1) challengeDays += 1;
+          else if (diff > 1) challengeDays = 1;
+          else if (diff === 0) {}
+          else challengeDays = 1;
+          lastChallengeDate = today;
+          saveState();
+        }
+      } else {
+        if (lastChallengeDate && lastChallengeDate !== today) {
+          const last = new Date(lastChallengeDate);
+          const now = new Date(today);
+          const diff = (now - last) / (1000*60*60*24);
+          if (diff >= 1) { challengeDays = 0; saveState(); }
+        }
+      }
+      if (challengeDays >= 7) { badges.glow_master = true; saveState(); updateBadges(); }
+    }
+
+    // --- breath ---
+    function setBreathPhase(phase) {
+      const svg = characterSvg.querySelector('svg');
+      if (!svg) return;
+      const lungs = svg.querySelectorAll('#lungL, #lungR');
+      if (phase === 'inhale') {
+        svg.style.transition = '0.3s'; svg.style.transform = 'scale(1.04)';
+        lungs.forEach(l => { l.setAttribute('fill', '#9a80d9'); l.setAttribute('opacity', '0.6'); });
+        breathPhase.textContent = '🌬️ Inhale';
+      } else if (phase === 'hold') {
+        svg.style.transform = 'scale(1.08)';
+        lungs.forEach(l => { l.setAttribute('fill', '#7b5fc7'); l.setAttribute('opacity', '0.8'); });
+        breathPhase.textContent = '⏸️ Hold';
+      } else if (phase === 'exhale') {
+        svg.style.transform = 'scale(0.96)';
+        lungs.forEach(l => { l.setAttribute('fill', '#b8a2d9'); l.setAttribute('opacity', '0.3'); });
+        breathPhase.textContent = '🌬️ Exhale';
+      } else {
+        svg.style.transform = 'scale(1)';
+        lungs.forEach(l => { l.setAttribute('fill', '#b8a2d9'); l.setAttribute('opacity', '0.3'); });
+        breathPhase.textContent = '🌬️ Ready';
+      }
+    }
+
+    function startBreathCycle() {
+      stopAllIntervals();
+      let phase = 'inhale', step = 0;
+      const INHALE = 5, HOLD = 5, EXHALE = 5;
+      isBreathing = true;
+      if (!timerInterval) {
+        timerInterval = setInterval(() => { timerSeconds++; timerDisplay.textContent = formatTime(timerSeconds); }, 1000);
+      }
+      breathInterval = setInterval(() => {
+        if (!isBreathing) { clearInterval(breathInterval); breathInterval = null; return; }
+        step++;
+        if (phase === 'inhale') {
+          setBreathPhase('inhale');
+          if (step >= INHALE) { phase = 'hold'; step = 0; }
+        } else if (phase === 'hold') {
+          setBreathPhase('hold');
+          if (step >= HOLD) { phase = 'exhale'; step = 0; }
+        } else if (phase === 'exhale') {
+          setBreathPhase('exhale');
+          if (step >= EXHALE) { phase = 'inhale'; step = 0; }
+        }
+      }, 1000);
+    }
+
+    function stopAllIntervals() {
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      if (breathInterval) { clearInterval(breathInterval); breathInterval = null; }
+      isBreathing = false;
+      setBreathPhase('idle');
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec/60), s = sec%60;
+      return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    function resetAll() {
+      stopAllIntervals();
+      timerSeconds = 0;
+      timerDisplay.textContent = '00:00';
+      setBreathPhase('idle');
+    }
+
+    // --- hydration ---
+    function addWater() {
+      waterMl += 250;
+      if (waterMl >= 2000) tasks.water = true;
+      saveState();
+      updateUI();
+      updateBadges();
+      updateChallenge();
+    }
+
+    // --- toggle task ---
+    function toggleTask(taskId) {
+      tasks[taskId] = !tasks[taskId];
+      if (taskId === 'water' && waterMl < 2000) tasks.water = false;
+      saveState();
+      updateUI();
+      updateBadges();
+      updateChallenge();
+    }
+
+    // --- skin & problem ---
+    function setSkin(skin) {
+      currentSkin = skin;
+      document.querySelectorAll('.skin-btn').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.skin-btn[data-skin="${skin}"]`)?.classList.add('active');
+      saveState();
+      updateUI();
+    }
+
+    function setProblem(problem) {
+      currentProblem = problem;
+      document.querySelectorAll('.problem-tag').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.problem-tag[data-problem="${problem}"]`)?.classList.add('active');
+      saveState();
+      updateUI();
+      updateProductMatches();
+    }
+
+    function setMeditation(med) {
+      currentMed = med;
+      document.querySelectorAll('.med-tag').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.med-tag[data-med="${med}"]`)?.classList.add('active');
+      updateMeditationMsg();
+      updateAffirmation();
+    }
+
+    // --- theme ---
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i> Day mode' : '<i class="fas fa-moon"></i> Night mode';
+      localStorage.setItem('zenskin_theme', isDark ? 'dark' : 'light');
+    }
+
+    function loadTheme() {
+      const theme = localStorage.getItem('zenskin_theme');
+      if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i> Day mode';
+      }
+    }
+
+    // --- water reminders ---
+    let reminderInterval = null;
+    function startWaterReminders() {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        reminderInterval = setInterval(() => {
+          new Notification('💧 Time to hydrate!', {
+            body: 'Drink a glass of water to keep your skin glowing.',
+            icon: '💧'
+          });
+        }, 2 * 60 * 60 * 1000);
+      } else if ('Notification' in window && Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') startWaterReminders();
+        });
+      }
+    }
+
+    // --- init ---
+    function init() {
+      loadTheme();
+      loadState();
+      document.querySelectorAll('.skin-btn').forEach(el => {
+        if (el.dataset.skin === currentSkin) el.classList.add('active');
+      });
+      document.querySelectorAll('.med-tag').forEach(el => {
+        if (el.dataset.med === currentMed) el.classList.add('active');
+      });
+      if (currentProblem) {
+        document.querySelector(`.problem-tag[data-problem="${currentProblem}"]`)?.classList.add('active');
+      }
+      updateUI();
+
+      startBreathBtn.addEventListener('click', () => { resetAll(); startBreathCycle(); });
+      resetTimerBtn.addEventListener('click', resetAll);
+      addWaterBtn.addEventListener('click', addWater);
+
+      document.querySelectorAll('.task-item').forEach(el => {
+        el.addEventListener('click', function() {
+          const task = this.dataset.task;
+          if (task) toggleTask(task);
+        });
+      });
+
+      document.querySelectorAll('.skin-btn').forEach(el => {
+        el.addEventListener('click', function() { setSkin(this.dataset.skin); });
+      });
+
+      document.querySelectorAll('.problem-tag').forEach(el => {
+        el.addEventListener('click', function() { 
+          setProblem(this.dataset.problem); 
+          updateProductMatches();
+        });
+      });
+
+      document.querySelectorAll('.med-tag').forEach(el => {
+        el.addEventListener('click', function() { setMeditation(this.dataset.med); });
+      });
+
+      themeToggle.addEventListener('click', toggleTheme);
+      characterSvg.addEventListener('click', () => { resetAll(); startBreathCycle(); });
+      routineBox.addEventListener('click', function() {
+        if (!tasks.skincare) {
+          tasks.skincare = true;
+          streakPoints += 3;
+          saveState();
+          updateUI();
+          updateBadges();
+          updateChallenge();
+        }
+      });
+
+      document.querySelectorAll('.mood-emoji').forEach(el => {
+        el.addEventListener('click', function() {
+          const mood = this.dataset.mood;
+          if (mood) setMood(mood);
+        });
+      });
+
+      logDietBtn.addEventListener('click', logDiet);
+      dietInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') logDiet(); });
+
+      if (waterMl >= 2000) tasks.water = true;
+      saveState();
+      updateUI();
+      startWaterReminders();
+      setInterval(() => { updateBadges(); updateChallenge(); }, 60000);
+    }
+
+    init();
+  })();
+</script>
+</body>
+</html>
